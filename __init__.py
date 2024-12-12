@@ -21,15 +21,15 @@ def replaceTokens(dummy):
     global renpath
     # global nodeDict
     tokens = {
-        "<scene>": bpy.context.scene.name,
-        "<file>": os.path.basename(bpy.data.filepath).split(".")[0],
-        "<viewlayer>": bpy.context.view_layer.name,
-        "<camera>": (
+        "$scene$": bpy.context.scene.name,
+        "$file$": os.path.basename(bpy.data.filepath).split(".")[0],
+        "$viewlayer$": bpy.context.view_layer.name,
+        "$camera$": (
             "NoCamera"
             if bpy.context.scene.camera == None
             else bpy.context.scene.camera.name
         ),
-        "<version>": os.path.basename(bpy.data.filepath).split(".")[0][-4:],
+        "$version$": os.path.basename(bpy.data.filepath).split(".")[0][-4:],
     }
 
     print(bpy.context.view_layer.objects.active.name)
@@ -43,19 +43,19 @@ def replaceTokens(dummy):
     #         if node.type == "OUTPUT_FILE":
     #             nodeDict.append([node, node.base_path])
     #             node.base_path = (
-    #                 node.base_path.replace("<scene>", tokens["<scene>"])
-    #                 .replace("<file>", tokens["<file>"])
-    #                 .replace("<viewlayer>", tokens["<viewlayer>"])
-    #                 .replace("<camera>", tokens["<camera>"])
-    #                 .replace("<version>", tokens["<version>"])
+    #                 node.base_path.replace("$scene$", tokens["$scene$"])
+    #                 .replace("$file$", tokens["$file$"])
+    #                 .replace("$viewlayer$", tokens["$viewlayer$"])
+    #                 .replace("$camera$", tokens["$camera$"])
+    #                 .replace("$version$", tokens["$version$"])
     #             )
 
     bpy.context.scene.render.filepath = (
-        renpath.replace("<scene>", tokens["<scene>"])
-        .replace("<file>", tokens["<file>"])
-        .replace("<viewlayer>", tokens["<viewlayer>"])
-        .replace("<camera>", tokens["<camera>"])
-        .replace("<version>", tokens["<version>"])
+        renpath.replace("$scene$", tokens["$scene$"])
+        .replace("$file$", tokens["$file$"])
+        .replace("$viewlayer$", tokens["$viewlayer$"])
+        .replace("$camera$", tokens["$camera$"])
+        .replace("$version$", tokens["$version$"])
     )
     print(bpy.context.scene.render.filepath)
 
@@ -70,7 +70,7 @@ def restoreTokens(dummy):
     #     node[0].base_path = node[1]
 
 
-# //RENDER/<scene>/<file>/<viewlayer>/<camera>
+# //RENDER/$scene$/$file$/$viewlayer$/$camera$
 
 
 def register():
